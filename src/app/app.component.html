@@ -3,17 +3,17 @@
     <h1 class="mt-5">Fulfillment Foto App </h1>
   </div>
 
-  <div *ngIf="imageModel; else makefoto" class="row justify-content-center align-items-center">
+ <!-- <div *ngIf="imageModel; else makefoto" class="row justify-content-center align-items-center">
     <app-image [imageModel]=imageModel></app-image>
-  </div>
+  </div>-->
 
   <!--<app-spinner [name]="spinner" [(show)]="showSpinner" class="spinner"></app-spinner>-->
 
-  <ng-template #makefoto>
+  <!--<ng-template #makefoto>
     <div *ngIf="isMakingPhoto" class="makefoto row justify-content-center align-items-center">
       <app-no-image-available [sonum]="query?.value" (takenPhotoEvent)="setImageModel($event)" class="row"></app-no-image-available>
     </div>
-  </ng-template>
+  </ng-template>-->
 
   <router-outlet></router-outlet>
 

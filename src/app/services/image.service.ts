@@ -9,6 +9,8 @@ import {ResponseContentType} from '@angular/http';
 })
 export class ImageService {
 
+  imageModel: ImageModel;
+
   baseImageUrl = 'http://localhost:3000/images';
 
   constructor(private httpClient: HttpClient) {
@@ -40,5 +42,11 @@ export class ImageService {
   //     });
   // }
 
+  set image(image: ImageModel) {
+    this.imageModel = image;
+  }
+  get image() {
+    return this.imageModel;
+  }
 
 }

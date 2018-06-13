@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ImageModel} from '../../models/image.model';
 import {ImageService} from '../../services/image.service';
 import {SpinnerService} from '../spinner/spinner.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-barcode-input',
@@ -17,7 +18,9 @@ export class BarcodeInputComponent implements OnInit {
 
   @ViewChild('query') input;
 
-  constructor(private imageService: ImageService,
+  constructor(
+              private router: Router,
+              private imageService: ImageService,
               protected spinner: SpinnerService) {
   }
 
@@ -55,6 +58,8 @@ export class BarcodeInputComponent implements OnInit {
             console.log(this.imageModels);
 
             if (this.imageModel) {
+              this.imageService.image(this.imageModel);
+              this.router.navigate(['image-exist']);
               // this.h100 = false;
             } else {
               // this.h100 = true;
