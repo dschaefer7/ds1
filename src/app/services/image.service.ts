@@ -9,7 +9,7 @@ import {ResponseContentType} from '@angular/http';
 })
 export class ImageService {
 
-  imageModel: ImageModel;
+  public imageModel: ImageModel;
 
   baseImageUrl = 'http://localhost:3000/images';
 
@@ -42,11 +42,11 @@ export class ImageService {
   //     });
   // }
 
-  set image(image: ImageModel) {
-    this.imageModel = image;
-  }
-  get image() {
-    return this.imageModel;
-  }
+  // set image(image: ImageModel) {
+  //   this.imageModel = image;
+  // }
+  // get image() {
+  //   return this.imageModel;
+  // }
 
 }

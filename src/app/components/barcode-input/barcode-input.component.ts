@@ -58,7 +58,7 @@ export class BarcodeInputComponent implements OnInit {
             console.log(this.imageModels);
 
             if (this.imageModel) {
-              this.imageService.image(this.imageModel);
+              this.imageService.imageModel = this.imageModel;
               this.router.navigate(['image-exist']);
               // this.h100 = false;
             } else {

@@ -16,7 +16,7 @@ export class ImageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.imageModel = this.imageService.image;
+    this.imageModel = this.imageService.imageModel;
   }
 
 
