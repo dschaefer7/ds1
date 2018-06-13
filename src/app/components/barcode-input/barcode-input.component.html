@@ -1,0 +1,16 @@
+<div class="row justify-content-center align-items-center" [class.h-100]="h100" *ngIf="!isMakingPhoto">
+  <div class="col-8">
+    <div class="form-group">
+      <label for="sonum">Barcode</label>
+      <input
+        #query
+        (keyup)="checkPhotoExist($event, query.value)"
+        type="text"
+        appAutofocus
+        class="form-control"
+        id="sonum">
+    </div>
+  </div>
+</div>
+
+<app-spinner [name]="spinner" [(show)]="showSpinner" class="spinner"></app-spinner>

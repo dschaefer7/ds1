@@ -41,54 +41,54 @@ export class AppComponent implements OnDestroy {
   }
 
 
-  async checkPhotoExist(e, articleId: string) {
-    e.preventDefault();
-
-    if (e.keyCode === 13) {
-      if (!articleId) {
-        console.log('input invalid!!!');
-        return;
-      }
-
-      this.isMakingPhoto = false;
-
-      this.showSpinner = true;
-
-      this.h100 = true;
-      this.imageModel = null;
-      await this.delay(1000);
-
-      this.imageService.getImages(articleId)
-        .subscribe(
-          (data: ImageModel[]) => {
-            this.imageModels = {
-              ...data,
-            };
-
-            this.imageModel = this.imageModels[0];
-
-
-            console.log(this.imageModels);
-
-            if (this.imageModel) {
-              this.h100 = false;
-            } else {
-              this.h100 = true;
-              this.showSpinner = false;
-              this.makePhotoFromArticle();
-            }
-          },
-          (error) => {
-            console.log('ZOPA', error);
-            this.h100 = true;
-          }
-        );
-
-      this.showSpinner = false;
-      // this.isLoading = false;
-      this.input.nativeElement.value = '';
-    }
-  }
+  // async checkPhotoExist(e, articleId: string) {
+  //   e.preventDefault();
+  //
+  //   if (e.keyCode === 13) {
+  //     if (!articleId) {
+  //       console.log('input invalid!!!');
+  //       return;
+  //     }
+  //
+  //     this.isMakingPhoto = false;
+  //
+  //     this.showSpinner = true;
+  //
+  //     this.h100 = true;
+  //     this.imageModel = null;
+  //     await this.delay(1000);
+  //
+  //     this.imageService.getImages(articleId)
+  //       .subscribe(
+  //         (data: ImageModel[]) => {
+  //           this.imageModels = {
+  //             ...data,
+  //           };
+  //
+  //           this.imageModel = this.imageModels[0];
+  //
+  //
+  //           console.log(this.imageModels);
+  //
+  //           if (this.imageModel) {
+  //             this.h100 = false;
+  //           } else {
+  //             this.h100 = true;
+  //             this.showSpinner = false;
+  //             this.makePhotoFromArticle();
+  //           }
+  //         },
+  //         (error) => {
+  //           console.log('ZOPA', error);
+  //           this.h100 = true;
+  //         }
+  //       );
+  //
+  //     this.showSpinner = false;
+  //     // this.isLoading = false;
+  //     this.input.nativeElement.value = '';
+  //   }
+  // }
 
 
   makePhotoFromArticle() {

@@ -10,6 +10,7 @@ import { NoImageAvailableComponent } from './components/no-image-available/no-im
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NewImageComponent } from './components/new-image/new-image.component';
 import {AppRoutingModule} from './app-routing.module';
+import { BarcodeInputComponent } from './components/barcode-input/barcode-input.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {AppRoutingModule} from './app-routing.module';
     NoImageAvailableComponent,
     SpinnerComponent,
     NewImageComponent,
+    BarcodeInputComponent,
   ],
   imports: [
     BrowserModule,

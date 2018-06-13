@@ -1,11 +1,12 @@
 import {RouterModule, Routes} from '@angular/router';
-import {AppComponent} from './app.component';
 import {NewImageComponent} from './components/new-image/new-image.component';
 import {NgModule} from '@angular/core';
+import {BarcodeInputComponent} from './components/barcode-input/barcode-input.component';
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
-  {path: 'new-image', component: NewImageComponent}
+  // {path: '', component: AppComponent},
+  {path: 'new-image', component: NewImageComponent},
+  {path: '', component: BarcodeInputComponent }
 ];
 
 @NgModule({
