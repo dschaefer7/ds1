@@ -19,6 +19,9 @@ export class ImageComponent implements OnInit {
     this.imageModel = this.imageService.imageModel;
   }
 
+  setImage(event) {
+    this.imageModel = event;
+  }
 
 
 }

@@ -1,6 +1,6 @@
 export interface ImageModel {
   sonum: string;
   imageExist: boolean;
-  sapArticleNumber: string;
+  //sapArticleNumber: string;
   src: string;
 }

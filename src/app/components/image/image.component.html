@@ -1,8 +1,10 @@
+
+<app-barcode-input (imageAvailable)="setImage($event)" ></app-barcode-input>
 <button type="button" class="close rounded-circle" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>
 <div class="card">
-  <img class="card-img-top" [src]="imageModel.src">
+  <img class="card-img-top" [src]="imageModel.src" *ngIf="imageModel">
   <div class="card-body">
     <div class="card-text">
       <div style="font-size:3em; color:green"><i class="far fa-check-circle"></i></div>

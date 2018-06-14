@@ -11,28 +11,62 @@ export class ImageService {
 
   public imageModel: ImageModel;
 
-  baseImageUrl = 'http://localhost:3000/images';
+  // baseImageUrl = 'http://localhost:3000/images';
+  baseImageUrl = 'http://imageservice.xip.io:80/api/v1/mapping/image';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getImages(sonum: string): Observable<ImageModel[]> {
+  getImage(sonum: string): Observable<ImageModel> {
     // const imageUrl = `${this.baseImageUrl}/${sonum}`;
-    const imageUrl = `${this.baseImageUrl}?sonum=${sonum}`;
+    const imageUrl = `${this.baseImageUrl}/${sonum}`;
     console.log(imageUrl);
-    return this.httpClient.get<ImageModel[]>(imageUrl);
-    // .subscribe((data: ImageModel) => {
-    //   console.log(data);
-    //
-    // });
+
+    return new Observable<ImageModel>((observer) => {
+      // return this.httpClient.get<Blob>(imageUrl,{responseType: ArrayBuffer});
+      this.httpClient
+        .get(imageUrl, {
+          headers: {},
+          responseType: 'blob'
+        }).subscribe(
+        (data: Blob) => {
+          this.imageModel = {
+            sonum: sonum,
+            imageExist: true,
+            src: imageUrl
+          };
+          // return this.imageModel;
+          observer.next(this.imageModel);
+          // observer.complete();
+
+        },
+        (error) => {
+          // console.log('ZOPA', error);
+          // this.imageModel = {
+          //   sonum: sonum,
+          //   imageExist: false,
+          //   src: imageUrl
+          // };
+          // return this.imageModel;
+          observer.error(error);
+        });
+
+
+      // .subscribe((data: ImageModel) => {
+      //   console.log(data);
+      //
+      // });
+    });
   }
 
-  savePhotoFromArticle(sonum: string): Observable<ImageModel[]> {
-    // const payload = {};
-    // payload[sonum] = sonum;
-    // this.httpClient.put(this.baseImageUrl, payload);
-    return this.getImages(sonum);
-  }
+
+
+  // savePhotoFromArticle(sonum: string): Observable<ImageModel[]> {
+  //   // const payload = {};
+  //   // payload[sonum] = sonum;
+  //   // this.httpClient.put(this.baseImageUrl, payload);
+  //   return this.getImages(sonum);
+  // }
 
 
   // getImage(imageUrl: string): Observable<Blob> {
@@ -42,11 +76,5 @@ export class ImageService {
   //     });
   // }
 
-  // set image(image: ImageModel) {
-  //   this.imageModel = image;
-  // }
-  // get image() {
-  //   return this.imageModel;
-  // }
-
+})
 }

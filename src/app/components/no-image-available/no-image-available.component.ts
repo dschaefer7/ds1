@@ -32,26 +32,26 @@ export class NoImageAvailableComponent implements OnInit {
     this.sonum = '1';
     await this.delay(1000);
 
-    this.imageService.savePhotoFromArticle(this.sonum)
-      .subscribe(
-        (data: ImageModel[]) => {
-          this.imageModels = {
-            ...data,
-          };
-          this.imageModel = this.imageModels[0];
-          //console.log(this.imageModels);
-
-          this.showSpinner = false;
-
-
-          this.takenPhotoEvent.emit(this.imageModel);
-          this.showSpinner = false;
-        },
-        (error) => {
-          console.log('ZOPAAAA', error);
-          this.showSpinner = false;
-        }
-      );
+    // this.imageService.savePhotoFromArticle(this.sonum)
+    //   .subscribe(
+    //     (data: ImageModel[]) => {
+    //       this.imageModels = {
+    //         ...data,
+    //       };
+    //       this.imageModel = this.imageModels[0];
+    //       //console.log(this.imageModels);
+    //
+    //       //this.showSpinner = false;
+    //
+    //
+    //       this.takenPhotoEvent.emit(this.imageModel);
+    //       //this.showSpinner = false;
+    //     },
+    //     (error) => {
+    //       console.log('ZOPAAAA', error);
+    //       this.showSpinner = false;
+    //     }
+    //   );
 
 
   }
