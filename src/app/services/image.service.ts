@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ImageModel} from '../models/image.model';
 import {Observable} from 'rxjs';
-import {ResponseContentType} from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class ImageService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getImage(sonum: string): Observable<ImageModel> {
+  getExistingImage(sonum: string): Observable<ImageModel> {
     // const imageUrl = `${this.baseImageUrl}/${sonum}`;
     const imageUrl = `${this.baseImageUrl}/${sonum}`;
     console.log(imageUrl);
@@ -33,7 +32,8 @@ export class ImageService {
           this.imageModel = {
             sonum: sonum,
             imageExist: true,
-            src: imageUrl
+            src: imageUrl,
+            imageData: data
           };
           // return this.imageModel;
           observer.next(this.imageModel);
@@ -41,13 +41,6 @@ export class ImageService {
 
         },
         (error) => {
-          // console.log('ZOPA', error);
-          // this.imageModel = {
-          //   sonum: sonum,
-          //   imageExist: false,
-          //   src: imageUrl
-          // };
-          // return this.imageModel;
           observer.error(error);
         });
 
@@ -59,22 +52,40 @@ export class ImageService {
     });
   }
 
+  getNewTakenPhoto(sonum: string): Observable<ImageModel> {
+    const imageUrl = `${this.baseImageUrl}`;
+    // console.log(imageUrl);
+    return new Observable<ImageModel>((observer) => {
+      this.httpClient
+        .post(imageUrl, null,
+          {
+            headers: {},
+            responseType: 'blob'
+          })
+        .subscribe(
+          (data: Blob) => {
+            this.imageModel = {
+              sonum: sonum,
+              imageExist: true,
+              src: imageUrl,
+              imageData: data
+            };
+            observer.next(this.imageModel);
+          },
+          (error) => {
+            console.log('Error from service---');
+            observer.error(error);
+          });
+    });
+  }
 
+  saveNewPhoto(imageModel: ImageModel): Observable<Object> {
+    const body = {'sonum': imageModel.sonum};
+    return this.httpClient.put(this.baseImageUrl, body);
+  }
 
-  // savePhotoFromArticle(sonum: string): Observable<ImageModel[]> {
-  //   // const payload = {};
-  //   // payload[sonum] = sonum;
-  //   // this.httpClient.put(this.baseImageUrl, payload);
-  //   return this.getImages(sonum);
-  // }
+  deleteNewPhoto(): Observable<Object> {
+    return this.httpClient.delete(this.baseImageUrl);
+  }
 
-
-  // getImage(imageUrl: string): Observable<Blob> {
-  //   return this.httpClient
-  //     .get(imageUrl, {
-  //       responseType: 'blob'
-  //     });
-  // }
-
-})
 }

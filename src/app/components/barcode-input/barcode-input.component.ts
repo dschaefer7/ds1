@@ -3,7 +3,6 @@ import {ImageModel} from '../../models/image.model';
 import {ImageService} from '../../services/image.service';
 import {SpinnerService} from '../spinner/spinner.service';
 import {Router} from '@angular/router';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-barcode-input',
@@ -11,8 +10,6 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./barcode-input.component.scss']
 })
 export class BarcodeInputComponent implements OnInit {
-
-
   showSpinner = false;
   imageModel: ImageModel;
 
@@ -22,7 +19,6 @@ export class BarcodeInputComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private sanitizer: DomSanitizer,
     private imageService: ImageService,
     protected spinner: SpinnerService) {
   }
@@ -31,21 +27,19 @@ export class BarcodeInputComponent implements OnInit {
   }
 
 
-  async checkPhotoExist(e, articleId: string) {
+  async checkPhotoExist(e, sonum: string) {
     e.preventDefault();
-
     if (e.keyCode === 13) {
-      if (!articleId) {
+      if (!sonum) {
         console.log('input invalid!!!');
         return;
       }
-
       this.showSpinner = true;
       this.imageModel = null;
 
       await this.delay(1000);
 
-      this.imageService.getImage(articleId)
+      this.imageService.getExistingImage(sonum)
       // if (this.imageModel == null) {
       //   this.showSpinner = false;
       //   return;
@@ -59,13 +53,8 @@ export class BarcodeInputComponent implements OnInit {
       // }
       //
       // this.showSpinner = false;
-
       .subscribe(
         (data: ImageModel) => {
-          // this.imageModel = {
-          //   sonum: articleId,
-          //   src: 'http://imageservice.xip.io:80/api/v1/mapping/image/6000000814000010'
-          // };
           this.imageModel = {
             ...data,
           };
@@ -74,20 +63,20 @@ export class BarcodeInputComponent implements OnInit {
 
           console.log(this.imageModel);
 
-          if (this.imageModel) {
+          // if (this.imageModel) {
             this.imageService.imageModel = this.imageModel;
             this.imageAvailable.emit(this.imageModel);
             this.router.navigate(['image-exist']);
 
-          } else {
-            this.router.navigate(['make-photo']);
-          }
+         // } else {
+         //   this.router.navigate(['make-photo']);
+         // }
           this.showSpinner = false;
         },
         (error) => {
-          console.log('ZOPA', error);
-          this.router.navigate(['make-photo']);
-          // this.h100 = true;
+          // console.log('ZOPA', error);
+          this.router.navigate(['make-photo', sonum]);
+          this.showSpinner = false;
         }
       );
 

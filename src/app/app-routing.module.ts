@@ -9,7 +9,7 @@ const routes: Routes = [
   // {path: '', component: AppComponent},
   {path: 'new-image', component: NewImageComponent},
   {path: 'image-exist', component: ImageComponent},
-  {path: 'make-photo', component: NoImageAvailableComponent},
+  {path: 'make-photo/:id', component: NoImageAvailableComponent},
   {path: '', component: BarcodeInputComponent }
 ];
 

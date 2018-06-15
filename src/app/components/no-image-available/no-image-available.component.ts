@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ImageService} from '../../services/image.service';
 import {ImageModel} from '../../models/image.model';
 import {SpinnerService} from '../spinner/spinner.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-no-image-available',
@@ -9,49 +11,55 @@ import {SpinnerService} from '../spinner/spinner.service';
   styleUrls: ['./no-image-available.component.scss']
 })
 export class NoImageAvailableComponent implements OnInit {
-  @Input() sonum;
   @Output() takenPhotoEvent: EventEmitter<ImageModel> = new EventEmitter();
 
-  imageModels: ImageModel[];
   imageModel: ImageModel;
+  sonum: number;
 
   showSpinner = false;
 
   constructor(private imageService: ImageService,
-              protected spinner: SpinnerService) {
-    this.spinner.show('spinnerCard');
+              protected spinner: SpinnerService,
+              private router: Router,
+              private route: ActivatedRoute) {
+    this.spinner.show('spinnerNoImage');
   }
 
   ngOnInit() {
-    this.getTakenPhoto();
+    this.route.params.subscribe(params => {
+      this.sonum = +params['id'];
+      this.getTakenPhoto();
+    });
+
   }
 
   async getTakenPhoto() {
-
     this.showSpinner = true;
-    this.sonum = '1';
     await this.delay(1000);
+    this.imageService.getNewTakenPhoto(this.sonum.toString())
+      .subscribe(
+        (data: ImageModel) => {
+          this.imageModel = {
+            ...data,
+          };
+          // this.takenPhotoEvent.emit(this.imageModel);
+          this.showSpinner = false;
 
-    // this.imageService.savePhotoFromArticle(this.sonum)
-    //   .subscribe(
-    //     (data: ImageModel[]) => {
-    //       this.imageModels = {
-    //         ...data,
-    //       };
-    //       this.imageModel = this.imageModels[0];
-    //       //console.log(this.imageModels);
-    //
-    //       //this.showSpinner = false;
-    //
-    //
-    //       this.takenPhotoEvent.emit(this.imageModel);
-    //       //this.showSpinner = false;
-    //     },
-    //     (error) => {
-    //       console.log('ZOPAAAA', error);
-    //       this.showSpinner = false;
-    //     }
-    //   );
+          console.log(this.imageModel);
+
+          this.imageService.imageModel = this.imageModel;
+          this.router.navigate(['new-image']);
+        },
+        (error: HttpErrorResponse) => {
+          console.log('Error from new-image-component', error);
+
+          if (error.status === 504) {
+            this.imageService.deleteNewPhoto();
+          }
+
+          this.showSpinner = false;
+        }
+      );
 
 
   }

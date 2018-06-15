@@ -114,7 +114,7 @@ export class AppComponent implements OnDestroy {
 
   // getImageFromService() {
   //   this.isImageLoading = true;
-  //   this.imageService.getImage('http://172.16.100.175:8180/api/v1/mapping/image')
+  //   this.imageService.getExistingImage('http://172.16.100.175:8180/api/v1/mapping/image')
   //     .subscribe(data => {
   //       this.createImageFromBlob(data);
   //       console.log(data);

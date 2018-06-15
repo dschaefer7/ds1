@@ -11,6 +11,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NewImageComponent } from './components/new-image/new-image.component';
 import {AppRoutingModule} from './app-routing.module';
 import { BarcodeInputComponent } from './components/barcode-input/barcode-input.component';
+import {NotyfModule} from 'ng-notyf';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BarcodeInputComponent } from './components/barcode-input/barcode-input.
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    NotyfModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

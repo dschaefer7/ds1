@@ -3,4 +3,5 @@ export interface ImageModel {
   imageExist: boolean;
   //sapArticleNumber: string;
   src: string;
+  imageData: Blob;
 }

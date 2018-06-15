@@ -1,3 +1,12 @@
-<p>
-  new-image works!
-</p>
+<div class="card">
+  <img class="card-img-top" [src]="imageToShow" *ngIf="imageToShow">
+  <div class="card-body">
+    <div class="card-text">
+      <p class="name mb-3">Foto speichern?</p>
+      <div class="button-group">
+        <button class="btn btn-lg btn-success" (click)="saveNewPhoto()">Ja</button>
+        <button class="btn btn-lg btn-danger" (click)="deleteNewPhoto()">Nein</button>
+      </div>
+    </div>
+  </div>
+</div>
