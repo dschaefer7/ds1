@@ -51,10 +51,11 @@ export class NoImageAvailableComponent implements OnInit {
           this.router.navigate(['new-image']);
         },
         (error: HttpErrorResponse) => {
-          console.log('Error from new-image-component', error);
+          console.log('Error from no-image-aval-component', error);
 
           if (error.status === 504) {
             this.imageService.deleteNewPhoto();
+            this.router.navigate(['/']);
           }
 
           this.showSpinner = false;

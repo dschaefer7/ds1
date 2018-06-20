@@ -20,20 +20,18 @@ export class ImageService {
     // const imageUrl = `${this.baseImageUrl}/${sonum}`;
     const imageUrl = `${this.baseImageUrl}/${sonum}`;
     console.log(imageUrl);
-
     return new Observable<ImageModel>((observer) => {
-      // return this.httpClient.get<Blob>(imageUrl,{responseType: ArrayBuffer});
       this.httpClient
         .get(imageUrl, {
           headers: {},
-          responseType: 'blob'
+          // responseType: 'blob'
         }).subscribe(
-        (data: Blob) => {
+        (data: any) => {
           this.imageModel = {
             sonum: sonum,
             imageExist: true,
-            src: imageUrl,
-            imageData: data
+            fileName: data.name,
+            base64data: 'data:image/jpg;base64,' + data.base64data
           };
           // return this.imageModel;
           observer.next(this.imageModel);
@@ -41,6 +39,12 @@ export class ImageService {
 
         },
         (error) => {
+           this.imageModel = {
+             sonum: sonum,
+             imageExist: false,
+             fileName: null,
+             base64data: null
+           };
           observer.error(error);
         });
 
@@ -63,12 +67,12 @@ export class ImageService {
             responseType: 'blob'
           })
         .subscribe(
-          (data: Blob) => {
+          (data: any) => {
             this.imageModel = {
               sonum: sonum,
               imageExist: true,
-              src: imageUrl,
-              imageData: data
+              fileName: data.name,
+              base64data: 'data:image/jpg;base64,' + data.base64data
             };
             observer.next(this.imageModel);
           },

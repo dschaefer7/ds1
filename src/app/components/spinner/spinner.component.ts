@@ -39,7 +39,7 @@ export class SpinnerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (!this.name) {
-      throw new Error('Spinner must have a \'name\' attribute.');
+      throw new Error('Spinner must have a \'fileName\' attribute.');
     }
     this.spinnerService._register(this);
   }

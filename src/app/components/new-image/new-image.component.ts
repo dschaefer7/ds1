@@ -41,7 +41,7 @@ export class NewImageComponent implements OnInit {
         }
       );
 
-    //this.notyfService.error('Something went wrong 😰😰😰');
+    // this.notyfService.error('Something went wrong 😰😰😰');
   }
 
   deleteNewPhoto() {
@@ -50,7 +50,7 @@ export class NewImageComponent implements OnInit {
         (data) => {
           console.log(data);
           this.notyfService.toastStyle = {'background-color': 'blue', 'color': 'white'};
-          this.notyfService.success('Die Datei wurder gelöscht');
+          this.notyfService.success('Foto wurde gelöscht');
           this.router.navigate(['/']);
         },
         (error: HttpErrorResponse) => {
